@@ -1,0 +1,17 @@
+*.idea
+*.pdf
+*.png
+*.jpg
+*.mexa64
+*.a
+third-party/prost/build/
+third-party/prost/cmake-build*/
+.ipynb_checkpoints/
+
+data/
+results/
+plot.ipynb
+
+*.pfm
+
+
