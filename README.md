@@ -13,7 +13,24 @@ In both of the top plots each point for a method represents a fixed number of la
 git clone --recurse-submodules https://github.com/nurlanov-zh/sublabel-accurate-alpha-expansion.git
 ```
 
-* Install and compile all third-parties in `third-party` folder.
+* Install and compile all third-parties in `third-party` folder. Note: to compile a mex-file of GCO comment out `graph.cpp` and `maxflow.cpp` from mex options in `third-party/gco-v3.0/GCO_BuildLib.m`, i.e.
+```
+mexcmd = ['mex ' MEXFLAGS ' -outdir ''' OUTDIR ''' -output ' LIB_NAME ' ' ];
+
+% Append all source file names to the MEX command string
+SRCCPP = { 
+    [GCOMATDIR filesep 'gco_matlab.cpp'],
+    [GCODIR filesep 'GCoptimization.cpp'],
+%    [GCODIR filesep 'graph.cpp'],
+%    [GCODIR filesep 'maxflow.cpp'],
+    [GCODIR filesep 'LinkedBlockList.cpp']
+    };
+for f=1:length(SRCCPP)
+    mexcmd = [mexcmd ' ''' SRCCPP{f} ''' '];
+end
+
+eval(mexcmd);  % compile and link in one step
+```
 
 * Run Matlab (tested on `Matlab R2015-b`), consider using `run_matlab.sh` command if you want to try out previous methods with GPU usage.
 
@@ -21,7 +38,7 @@ git clone --recurse-submodules https://github.com/nurlanov-zh/sublabel-accurate-
   
 
 #### Non-submodular energies
-If you would like to use GCO with non-submodular energies, consider replacing `addterm2_checked` function in `third-party/gco-v3.0/GCoptimization.cpp` to:
+If you would like to use GCO with non-submodular energies, consider commenting out assertion in `addterm2_checked` function in `third-party/gco-v3.0/GCoptimization.cpp`:
 
 ```
 OLGA_INLINE void GCoptimization::addterm2_checked(EnergyT* e, VarID i, VarID j, 

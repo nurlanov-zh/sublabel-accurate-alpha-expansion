@@ -29,7 +29,11 @@ function [data_cost, smooth_cost, neighbor_cost, time_elapsed,...
     % fprintf('\nStarting truncated RoF problem construction...\n');
     %% Truncated quadratic dataterm + TV denoising
     if isempty(im_noisy)
-        rng(42);
+        rng('default')
+        w = warning;
+        warning('off', 'MATLAB:RandStream:ActivatingLegacyGenerators')
+        rand('state', 11)
+        warning(w);
         % load image
         im_path = 'watercastle.jpg';
         im = imread(im_path);

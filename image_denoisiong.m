@@ -8,7 +8,7 @@ run_previous_methods = false;
 
 discrete_method = 'GCO';            % 'GCO' or 'exact'
 sublabel_method = 'QL';             % 'QL' or 'LM' or 'QM' 
-discretize_sublabel = true;
+discretize_sublabel = false;
 
 coef_imresize = 0.5;
 lmb = 0.6;

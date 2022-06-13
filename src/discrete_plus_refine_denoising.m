@@ -104,7 +104,7 @@ function [ time_elapsed_GCO, energy_to_compare_GCO, ...
     im_sublabel = reshape(result_sublabel_double, [ny, nx]);
     imwrite(im_sublabel, ['results/images/sublabel_ours_' sublabel_method ...
         '_' discrete_method '_' num2str(L) '.png'])
-    imshowpair(im_GCO, im_sublabel, 'montage');
+    % imshowpair(im_GCO, im_sublabel, 'montage');
     
     %% Discretize sublabel accurate result
     if discretize_sublabel
