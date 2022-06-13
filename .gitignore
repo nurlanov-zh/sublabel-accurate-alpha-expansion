@@ -1,7 +1,4 @@
 *.idea
-*.pdf
-*.png
-*.jpg
 *.mexa64
 *.a
 third-party/prost/build/

@@ -2,22 +2,17 @@
 
 ## Usage  
 
-### Tested on
-  
-``` 
-Matlab R2015-b 
-cmake 3.10.2 
-g++ 7.5.0
-Ubuntu 18.04
-  
-Nvidia GeForce GTX 1050, Driver Version: 440.100
-CUDA 10.2
-``` 
-  
 ### Quick Try Out
-* Install and compile all third-parties into `third-party` folder.
+```
+git clone --recurse-submodules https://github.com/nurlanov-zh/sublabel-accurate-alpha-expansion.git
+```
 
-* Run MATLAB examples in `image_denoising.m`
+* Install and compile all third-parties in `third-party` folder.
+
+* Run Matlab (tested on `Matlab R2015-b`), consider using `run_matlab.sh` command if you want to try out previous methods with GPU usage.
+
+* Add paths by `startup.m` and find image denoising example in `image_denoising.m`.
+  
 
 #### Non-submodular energies
 If you would like to use GCO with non-submodular energies, consider replacing `addterm2_checked` function in `third-party/gco-v3.0/GCoptimization.cpp` to:
@@ -90,6 +85,7 @@ Code is based on the following third-parties:
 - [prost](https://github.com/tum-vision/prost)
 - [sublabel-relax](https://github.com/tum-vision/sublabel_relax)
 - [yalmip](https://yalmip.github.io/)
+- [multilabel_submodular](https://github.com/shaibagon/multilabel_submodular)
 
 And on the following publications:
 
