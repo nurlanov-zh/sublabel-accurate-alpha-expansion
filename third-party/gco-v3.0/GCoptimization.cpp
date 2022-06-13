@@ -294,18 +294,29 @@ OLGA_INLINE void GCoptimization::addterm1_checked(EnergyT* e, VarID i, EnergyTer
 	e->add_term1(i,e0*w,e1*w);
 }
 
-OLGA_INLINE void GCoptimization::addterm2_checked(EnergyT* e, VarID i, VarID j, EnergyTermType e00, EnergyTermType e01, EnergyTermType e10, EnergyTermType e11, EnergyTermType w)
+OLGA_INLINE void GCoptimization::addterm2_checked(EnergyT* e, VarID i, VarID j, 
+       EnergyTermType e00, EnergyTermType e01, EnergyTermType e10, EnergyTermType e11, EnergyTermType w)
 {
-	if ( e00 > GCO_MAX_ENERGYTERM || e11 > GCO_MAX_ENERGYTERM || e01 > GCO_MAX_ENERGYTERM || e10 > GCO_MAX_ENERGYTERM )
-		handleError("Smooth cost term was larger than GCO_MAX_ENERGYTERM; danger of integer overflow.");
-	if ( w > GCO_MAX_ENERGYTERM )
-		handleError("Smoothness weight was larger than GCO_MAX_ENERGYTERM; danger of integer overflow.");
-	// Inside energy/maxflow code the submodularity check is performed as an assertion,
-	// but is optimized out. We check it in release builds as well.
-	if ( e00+e11 > e01+e10 )
-		// handleError("Non-submodular expansion term detected; smooth costs must be a metric for expansion");
-	m_beforeExpansionEnergy += e11*w;
-	e->add_term2(i,j,e00*w,e01*w,e10*w,e11*w);
+       if ( e00 > GCO_MAX_ENERGYTERM || e11 > GCO_MAX_ENERGYTERM || e01 > GCO_MAX_ENERGYTERM || e10 > GCO_MAX_ENERGYTERM )
+               handleError("Smooth cost term was larger than GCO_MAX_ENERGYTERM; danger of integer overflow.");
+       if ( w > GCO_MAX_ENERGYTERM )
+               handleError("Smoothness weight was larger than GCO_MAX_ENERGYTERM; danger of integer overflow.");
+       // Inside energy/maxflow code the submodularity check is performed as an assertion,
+       // but is optimized out. We check it in release builds as well.
+       if ( e00+e11 > e01+e10 ) {
+               // printf("i = %d, j = %d\ne00 = %d, e11 = %d, e01 = %d, e10 = %d, e00+e11 = %d, e01+e10 = %d, e00+e11-(e01+e10) = %d, but must be <= 1\n",
+               //      i, j,e00, e11, e01, e10, e00+e11, e01+e10, e00+e11-(e01+e10));
+               
+               if ( e00+e11-(e01+e10) <= 1 ) { // discretisation error, only give a message
+                       // printf("Minor violation of non-submodular expansion term detected (discretisation error); ignoring...\n");
+               }
+               else {
+				   	   // printf("Non-submodular expansion term detected.\n");
+                       // handleError("Non-submodular expansion term detected; smooth costs must be a metric for expansion");  
+               }
+       }
+       m_beforeExpansionEnergy += e11*w;
+       e->add_term2(i,j,e00*w,e01*w,e10*w,e11*w);
 }
 
 //------------------------------------------------------------------

@@ -32,7 +32,7 @@ function [data_cost, smooth_cost, neighbor_cost, time_elapsed,...
         rng('default')
         w = warning;
         warning('off', 'MATLAB:RandStream:ActivatingLegacyGenerators')
-        rand('state', 11)
+        rand('state', 42)
         warning(w);
         % load image
         im_path = 'watercastle.jpg';

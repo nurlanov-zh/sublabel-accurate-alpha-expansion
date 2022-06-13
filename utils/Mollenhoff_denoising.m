@@ -1,7 +1,12 @@
 function [time_elapsed, energy, energy_discretized ...
         ] = Mollenhoff_denoising(L, coef_imresize, lmb, discretize_sublabel)
     %% Truncated quadratic dataterm + TV denoising (see Fig.7) with sublabel lifting
-    rng(42);
+    rng('default')
+    w = warning;
+    warning('off', 'MATLAB:RandStream:ActivatingLegacyGenerators')
+    rand('state', 42)
+    warning(w);
+    
     if ~exist('coef_imresize','var') || isempty(coef_imresize)
       coef_imresize=0.5;
     end

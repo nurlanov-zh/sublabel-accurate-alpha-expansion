@@ -4,6 +4,7 @@
 third-party/prost/build/
 third-party/prost/cmake-build*/
 .ipynb_checkpoints/
+*/build/*
 
 results/
 plot.ipynb

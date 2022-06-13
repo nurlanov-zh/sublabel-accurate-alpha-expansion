@@ -8,76 +8,29 @@ In both of the top plots each point for a method represents a fixed number of la
 
 ## Usage  
 
-### Quick Try Out
+### Quick start
 ```
 git clone --recurse-submodules https://github.com/nurlanov-zh/sublabel-accurate-alpha-expansion.git
 ```
 
-* Install and compile all third-parties in `third-party` folder. Note: to compile a mex-file of GCO comment out `graph.cpp` and `maxflow.cpp` from mex options in `third-party/gco-v3.0/GCO_BuildLib.m`, i.e.
-```
-mexcmd = ['mex ' MEXFLAGS ' -outdir ''' OUTDIR ''' -output ' LIB_NAME ' ' ];
+* Run Matlab (tested on `Matlab R2015-b`).
 
-% Append all source file names to the MEX command string
-SRCCPP = { 
-    [GCOMATDIR filesep 'gco_matlab.cpp'],
-    [GCODIR filesep 'GCoptimization.cpp'],
-%    [GCODIR filesep 'graph.cpp'],
-%    [GCODIR filesep 'maxflow.cpp'],
-    [GCODIR filesep 'LinkedBlockList.cpp']
-    };
-for f=1:length(SRCCPP)
-    mexcmd = [mexcmd ' ''' SRCCPP{f} ''' '];
-end
-
-eval(mexcmd);  % compile and link in one step
-```
-
-* Run Matlab (tested on `Matlab R2015-b`), consider using `run_matlab.sh` command if you want to try out previous methods with GPU usage.
-
-* Add paths by `startup.m` and find image denoising example in `image_denoising.m`.
-  
-
-#### Non-submodular energies
-If you would like to use GCO with non-submodular energies, consider commenting out assertion in `addterm2_checked` function in `third-party/gco-v3.0/GCoptimization.cpp`:
-
-```
-OLGA_INLINE void GCoptimization::addterm2_checked(EnergyT* e, VarID i, VarID j, 
-       EnergyTermType e00, EnergyTermType e01, EnergyTermType e10, EnergyTermType e11, EnergyTermType w)
-{
-       if ( e00 > GCO_MAX_ENERGYTERM || e11 > GCO_MAX_ENERGYTERM || e01 > GCO_MAX_ENERGYTERM || e10 > GCO_MAX_ENERGYTERM )
-               handleError("Smooth cost term was larger than GCO_MAX_ENERGYTERM; danger of integer overflow.");
-       if ( w > GCO_MAX_ENERGYTERM )
-               handleError("Smoothness weight was larger than GCO_MAX_ENERGYTERM; danger of integer overflow.");
-       // Inside energy/maxflow code the submodularity check is performed as an assertion,
-       // but is optimized out. We check it in release builds as well.
-       if ( e00+e11 > e01+e10 ) {
-               // printf("i = %d, j = %d\ne00 = %d, e11 = %d, e01 = %d, e10 = %d, e00+e11 = %d, e01+e10 = %d, e00+e11-(e01+e10) = %d, but must be <= 1\n",
-               //      i, j,e00, e11, e01, e10, e00+e11, e01+e10, e00+e11-(e01+e10));
-               
-               if ( e00+e11-(e01+e10) <= 1 ) { // discretisation error, only give a message
-                       // printf("Minor violation of non-submodular expansion term detected (discretisation error); ignoring...\n");
-               }
-               else {
-                       // handleError("Non-submodular expansion term detected; smooth costs must be a metric for expansion");  
-               }
-       }
-
-       // if ( e00+e11 > e01+e10 )
-       //      handleError("Non-submodular expansion term detected; smooth costs must be a metric for expansion");
-       m_beforeExpansionEnergy += e11*w;
-       e->add_term2(i,j,e00*w,e01*w,e10*w,e11*w);
-}
-```
+* Find image denoising example in `image_denoising.m` (add paths by running `startup.m`).
 
 
-#### (Optinally, requires external solver) Sublabel-accurate refinement:
-- If you want to reproduce the same timings, consider adding external 
+#### Sublabel-accurate refinement solver (optinally, requires external solver):
+- If you want to reproduce the same results as in our paper, consider adding external 
 solvers (Gurobi). Add their paths into Matlab by editing `startup.m`.
 
 - Run the test file `third-party/yalmip/yalmiptest.m` from Matlab to check 
 if the external solvers are found.
 
-#### (Optionally, requires GPU) Previous sublabel-accurate methods: 
+#### Previous sublabel-accurate methods (optionally, requires GPU): 
+
+Compile prost in `third-party` folder.
+
+Please take a look at GNU and CMake version requirements of `prost`. Our experiments were tested with `cmake 3.10.2`, `g++ 7.5.0` on Ubunutu 18.04, and with CUDA 10.2.
+
 ```sh
 cd third-party/prost/
 mkdir build
