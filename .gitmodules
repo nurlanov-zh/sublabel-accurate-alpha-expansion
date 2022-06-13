@@ -1,0 +1,15 @@
+[submodule "third-party/sublabel_relax"]
+	path = third-party/sublabel_relax
+	url = https://github.com/tum-vision/sublabel_relax
+[submodule "third-party/prost"]
+	path = third-party/prost
+	url = https://github.com/tum-vision/prost
+[submodule "third-party/YALMIP"]
+	path = third-party/YALMIP
+	url = https://github.com/yalmip/YALMIP.git
+[submodule "third-party/gco-v3.0"]
+	path = third-party/gco-v3.0
+	url = https://github.com/nsubtil/gco-v3.0.git
+[submodule "third-party/multilabel_submodular"]
+	path = third-party/multilabel_submodular
+	url = https://github.com/shaibagon/multilabel_submodular.git

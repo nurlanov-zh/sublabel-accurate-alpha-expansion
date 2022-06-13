@@ -15,9 +15,42 @@ CUDA 10.2
 ``` 
   
 ### Quick Try Out
-* Install all third-parties into `third-party` folder.
+* Install and compile all third-parties into `third-party` folder.
 
 * Run MATLAB examples in `image_denoising.m`
+
+#### Non-submodular energies
+If you would like to use GCO with non-submodular energies, consider replacing `addterm2_checked` function in `third-party/gco-v3.0/GCoptimization.cpp` to:
+
+```
+OLGA_INLINE void GCoptimization::addterm2_checked(EnergyT* e, VarID i, VarID j, 
+       EnergyTermType e00, EnergyTermType e01, EnergyTermType e10, EnergyTermType e11, EnergyTermType w)
+{
+       if ( e00 > GCO_MAX_ENERGYTERM || e11 > GCO_MAX_ENERGYTERM || e01 > GCO_MAX_ENERGYTERM || e10 > GCO_MAX_ENERGYTERM )
+               handleError("Smooth cost term was larger than GCO_MAX_ENERGYTERM; danger of integer overflow.");
+       if ( w > GCO_MAX_ENERGYTERM )
+               handleError("Smoothness weight was larger than GCO_MAX_ENERGYTERM; danger of integer overflow.");
+       // Inside energy/maxflow code the submodularity check is performed as an assertion,
+       // but is optimized out. We check it in release builds as well.
+       if ( e00+e11 > e01+e10 ) {
+               // printf("i = %d, j = %d\ne00 = %d, e11 = %d, e01 = %d, e10 = %d, e00+e11 = %d, e01+e10 = %d, e00+e11-(e01+e10) = %d, but must be <= 1\n",
+               //      i, j,e00, e11, e01, e10, e00+e11, e01+e10, e00+e11-(e01+e10));
+               
+               if ( e00+e11-(e01+e10) <= 1 ) { // discretisation error, only give a message
+                       // printf("Minor violation of non-submodular expansion term detected (discretisation error); ignoring...\n");
+               }
+               else {
+                       // handleError("Non-submodular expansion term detected; smooth costs must be a metric for expansion");  
+               }
+       }
+
+       // if ( e00+e11 > e01+e10 )
+       //      handleError("Non-submodular expansion term detected; smooth costs must be a metric for expansion");
+       m_beforeExpansionEnergy += e11*w;
+       e->add_term2(i,j,e00*w,e01*w,e10*w,e11*w);
+}
+```
+
 
 #### (Optinally, requires external solver) Sublabel-accurate refinement:
 - If you want to reproduce the same timings, consider adding external 
