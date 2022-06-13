@@ -1,5 +1,7 @@
 # Efficient and Flexible Sublabel-accurate Energy Minimization
 
+![Comparison of the methods on image denoising problem. In both of the top plots each point for a method represents a fixed number of labels 5, 10, ..., 256. Continuous optimization methods by Pock et al. and Moellenhoff et al. solve the problems of choosing the optimal label range and sublabel-accurate refinement simultaneously, which makes them poorly scalable to large label spaces (see top right plot). In contrast, we propose to solve the two problems sequentially, which significantly reduces the computational costs producing almost optimal results much faster than previous continuous methods (see top left plot in logarithmic time). The discrete initialization of our method (GCO) scales best w.r.t. number of labels, but suffers from label discretization bias. Our sublabel-accurate refinement substantially reduces label discretisation artefacts (see images on the bottom for the case of |L|=10 labels), takes constant time w.r.t. label space discretization, and requires fewer number of labels than discrete method to reach plausible results.](data/teaser.png)
+
 ## Usage  
 
 ### Quick Try Out
