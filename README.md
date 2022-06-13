@@ -27,9 +27,9 @@ if the external solvers are found.
 
 #### Previous sublabel-accurate methods (optionally, requires GPU): 
 
-Compile prost in `third-party` folder.
+Compile [prost](https://github.com/tum-vision/prost) in `third-party` folder.
 
-Please take a look at GNU and CMake version requirements of `prost`. Our experiments were tested with `cmake 3.10.2`, `g++ 7.5.0` on Ubunutu 18.04, and with CUDA 10.2.
+Please take a look at GNU and CMake version requirements of [prost](https://github.com/tum-vision/prost). Our experiments were tested with CMake 3.10.2, g++ 7.5.0 on Ubunutu 18.04, and with CUDA 10.2.
 
 ```sh
 cd third-party/prost/
