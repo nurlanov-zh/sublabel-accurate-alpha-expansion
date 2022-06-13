@@ -52,9 +52,6 @@ or by running bash script `run_matlab.sh`.
   
 ## References 
 
-**Important**: Please be aware of the Licences and Copyrights of the used third-party software. Check Readme and/or Licence files in corresponding `third-party` folders. 
-
-
 Code is based on the following third-parties:
 
 - [GCO-v3.0](https://github.com/nsubtil/gco-v3.0)
@@ -80,3 +77,10 @@ And on the following publications:
 [6] Thomas Pock, Daniel Cremers, Horst Bischof, and Antonin Chambolle, "Global solutions of variational models with convex regularization", SIAM Journal on Imaging Sciences, 2010.
 
 * See full list of references in our paper
+
+## License
+
+**Important**: Please be aware of the Copyright and license notices of the used third-party software. Check Readme and/or Licence files in corresponding `third-party` folders.
+
+The License of this repository does not apply to the content of `third-party` folder.
+
