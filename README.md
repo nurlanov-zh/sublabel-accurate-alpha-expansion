@@ -15,13 +15,15 @@ CUDA 10.2
 ``` 
   
 ### Quick Try Out
-Just **run** MATLAB examples in `image_denoising.m`
+* Install all third-parties into `third-party` folder.
+
+* Run MATLAB examples in `image_denoising.m`
 
 #### (Optinally, requires external solver) Sublabel-accurate refinement:
 - If you want to reproduce the same timings, consider adding external 
 solvers (Gurobi). Add their paths into Matlab by editing `startup.m`.
 
--Run the test file `third-party/yalmip/yalmiptest.m` from Matlab to check 
+- Run the test file `third-party/yalmip/yalmiptest.m` from Matlab to check 
 if the external solvers are found.
 
 #### (Optionally, requires GPU) Previous sublabel-accurate methods: 
@@ -58,7 +60,7 @@ Code is based on the following third-parties:
 
 And on the following publications:
 
-[1] [D. Schlesinger and B. Flach, "Transforming an arbitrary MinSum problem into a binary one", Technical report TUD-FI06-01, Dresden University of Technology, April 2006.](http://www1.inf.tu-dresden.de/~ds24/publications/tr_kto2.pdf)
+[1] D. Schlesinger and B. Flach, ["Transforming an arbitrary MinSum problem into a binary one"](http://www1.inf.tu-dresden.de/~ds24/publications/tr_kto2.pdf), Technical report TUD-FI06-01, Dresden University of Technology, April 2006.
        
 [2] Yuri Boykov and Vladimir Kolmogorov, "An Experimental Comparison of Min-Cut/Max-Flow Algorithms for Energy Minimization in Computer Vision", TPAMI, September 2004. 
  
@@ -66,8 +68,10 @@ And on the following publications:
          
 [3] Shai Bagon "Matlab Implementation of Schlezinger and Flach Submodular Optimization", June 2012.
 
-[4] [Yuri Boykov, Olga Veksler, and Ramin Zabih, "Fast approximate energy minimization via graph cuts", TPAMI, November 2001.](http://www.cs.cornell.edu/rdz/Papers/BVZ-iccv99.pdf)
+[4] Yuri Boykov, Olga Veksler, and Ramin Zabih, ["Fast approximate energy minimization via graph cuts"](http://www.cs.cornell.edu/rdz/Papers/BVZ-iccv99.pdf), TPAMI, November 2001.
 
-[5] [Thomas Mollenhoff, Emanuel Laude, Michael Moeller, Jan Lellmann, and Daniel Cremers, "Sublabel-accurate relaxation of nonconvex energies", CVPR, 2016.](https://arxiv.org/pdf/1512.01383.pdf)
+[5] Thomas Mollenhoff, Emanuel Laude, Michael Moeller, Jan Lellmann, and Daniel Cremers, ["Sublabel-accurate relaxation of nonconvex energies"](https://arxiv.org/pdf/1512.01383.pdf), CVPR, 2016.
 
 [6] Thomas Pock, Daniel Cremers, Horst Bischof, and Antonin Chambolle, "Global solutions of variational models with convex regularization", SIAM Journal on Imaging Sciences, 2010.
+
+* See full list of references in our paper
